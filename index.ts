@@ -36,3 +36,14 @@ const person2= {
 }
 
 console.log(person.name);
+
+//配列の型注釈
+//変数が全て一種類の場合は、単純に型注釈で書くことができる。
+//変数が複数種類の場合は、|(または)を使って書くことができる。
+const fruits: string[] = ['apple', 'banana', 'grape'];
+const frutts2: (string|number) [] = ['apple', 'banana', 'grape', 1];
+
+//tuple型は型推論が行われないので、型注釈する必要がある。
+//配列の強化版
+const book: [string, number, boolean] = ['business', 1500, false];
+
