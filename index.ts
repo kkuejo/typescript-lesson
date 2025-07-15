@@ -37,7 +37,7 @@ const person2= {
 
 console.log(person.name);
 
-//配列の型注釈
+//配列の型注釈(Array型)
 //変数が全て一種類の場合は、単純に型注釈で書くことができる。
 //変数が複数種類の場合は、|(または)を使って書くことができる。
 const fruits: string[] = ['apple', 'banana', 'grape'];
@@ -46,4 +46,52 @@ const frutts2: (string|number) [] = ['apple', 'banana', 'grape', 1];
 //tuple型は型推論が行われないので、型注釈する必要がある。
 //配列の強化版
 const book: [string, number, boolean] = ['business', 1500, false];
+
+//enum型は列挙型
+//coffeeのsizeに自由に入れられないようにする。
+//sizeにはShort, Tall, Grande, Ventiの4つの値が入る
+//Objectと同じように、""."で使える。
+//通常の変数はキャメルケースで書くのが一般的(最初は小文字、以降は大文字)
+//enumは大文字で書くのが一般的
+enum CoffeeSize {
+    SHORT = 'SHORT',
+    TALL = 'TALL', 
+    GRANDE = 'GRANDE',
+    VENTI = 'VENTI'
+}
+
+const coffee = {
+    hot: true,
+    size: CoffeeSize.SHORT
+}
+
+//enum型で値を与えなければ、0から順番に値が入る。
+//値を与えると、その値から順番に値が入る。
+//つまり、SHORTは0、TALLは1、GRANDEは100、VENTIは101となる。
+enum CoffeeSize2 {
+    SHORT,
+    TALL, 
+    GRANDE = 100,
+    VENTI
+}
+
+const coffee2 = {
+    hot: true, 
+    size: CoffeeSize2.VENTI
+}
+//enumに数字があった場合には、数字を入れることができる。
+//coffee.size = 'VENTI';とするとエラーになる。
+//coffee2.size = 100;とすることができる。
+
+
+//any型は全ての型を許可する。
+//boolian,string, object, numberを入れることができる。
+//objectに新しいproperty(.coffee)を追加することができる。
+let anything: any = true;
+anything = 'hello';
+anything = ['hello', 50, true];
+anything = {};
+anything.coffee = 'coffee';
+//any型で配列を用意すると、何でも入れれる配列を作ることができる。
+let anything2: any[] = [true]
 
