@@ -40,6 +40,8 @@ var book = ['business', 1500, false];
 //coffeeのsizeに自由に入れられないようにする。
 //sizeにはShort, Tall, Grande, Ventiの4つの値が入る
 //Objectと同じように、""."で使える。
+//通常の変数はキャメルケースで書くのが一般的(最初は小文字、以降は大文字)
+//enumは大文字で書くのが一般的
 var CoffeeSize;
 (function (CoffeeSize) {
     CoffeeSize["SHORT"] = "SHORT";
@@ -51,3 +53,30 @@ var coffee = {
     hot: true,
     size: CoffeeSize.SHORT
 };
+//enum型で値を与えなければ、0から順番に値が入る。
+//値を与えると、その値から順番に値が入る。
+//つまり、SHORTは0、TALLは1、GRANDEは100、VENTIは101となる。
+var CoffeeSize2;
+(function (CoffeeSize2) {
+    CoffeeSize2[CoffeeSize2["SHORT"] = 0] = "SHORT";
+    CoffeeSize2[CoffeeSize2["TALL"] = 1] = "TALL";
+    CoffeeSize2[CoffeeSize2["GRANDE"] = 100] = "GRANDE";
+    CoffeeSize2[CoffeeSize2["VENTI"] = 101] = "VENTI";
+})(CoffeeSize2 || (CoffeeSize2 = {}));
+var coffee2 = {
+    hot: true,
+    size: CoffeeSize2.VENTI
+};
+//enumに数字があった場合には、数字を入れることができる。
+//coffee.size = 'VENTI';とするとエラーになる。
+//coffee2.size = 100;とすることができる。
+//any型は全ての型を許可する。
+//boolian,string, object, numberを入れることができる。
+//objectに新しいproperty(.coffee)を追加することができる。
+var anything = true;
+anything = 'hello';
+anything = ['hello', 50, true];
+anything = {};
+anything.coffee = 'coffee';
+//any型で配列を用意すると、何でも入れれる配列を作ることができる。
+var anything2 = [true];

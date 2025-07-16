@@ -85,7 +85,7 @@ const coffee2 = {
 
 
 //any型は全ての型を許可する。
-//boolian,string, object, numberを入れることができる。
+//boolian, string, object, numberを入れることができる。
 //objectに新しいproperty(.coffee)を追加することができる。
 let anything: any = true;
 anything = 'hello';
@@ -95,3 +95,53 @@ anything.coffee = 'coffee';
 //any型で配列を用意すると、何でも入れれる配列を作ることができる。
 let anything2: any[] = [true]
 
+//Union型は複数の型を許可する。
+//|を使って書く。
+//文字列も数字も入れたい
+let unionType: number | string = 10;
+//unionType.toUppercase();とすると、.toUpperCase()はstringにしか使えないのでエラーになる。
+unionType = 'hello';
+unionType.toUpperCase();
+//配列を指定する場合は()を使う必要がある。
+let unionTypes: (number | string)[] = [1, 'hello'];
+
+//Literal型は特定の値を指定する。
+//'apple'と形にすると、appleしか入らなくなる。
+//constにした瞬間に型推論はLiteral型になる。
+//ちなみに、letにすると型推論はstring型になる。
+const apple: 'apple' = 'apple';
+//const apples: 'apple' = 'banana';とすると、bananaはappleにならないのでエラーになる。
+//どういう場合に便利なのか？
+//Enum型と同じように、特定の値を指定することができる。
+let clothSize: 'S' | 'M' | 'L' = 'M';
+//Enum型の違いは、EnumはObjectであるが、Literal型はObjectではない。
+//つまり、clothSize.Sのような書き方はできない。
+const cloth: {
+    size: 'S' | 'M' | 'L';
+    color: 'red' | 'blue' | 'green';
+} = {
+    size: 'M',
+    color: 'red'
+}
+
+
+//Type Aliasは型の別名をつける。
+//わかりやすく言うと、型の変数を作るもの。
+//別名をつけて分かりやすくする。
+type CoothColor = 'red' | 'blue' | 'green';
+let clothColor: CoothColor = 'red';
+const cloth2: {
+    size: 'S' | 'M' | 'L';
+    color: CoothColor;
+} = {
+    size: 'M',
+    color: 'red'
+}
+
+
+
+
+
+//Union型とLiteral型の違いは、Union型は複数の型を許可するが、Literal型は特定の値を指定する。
+//Union型は、どちらの型でも使える。
+//Literal型は、特定の値を指定する。
