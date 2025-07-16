@@ -27,7 +27,6 @@ var person2 = {
     },
     age: 21
 };
-console.log(person.name);
 //配列の型注釈(Array型)
 //変数が全て一種類の場合は、単純に型注釈で書くことができる。
 //変数が複数種類の場合は、|(または)を使って書くことができる。
@@ -71,7 +70,7 @@ var coffee2 = {
 //coffee.size = 'VENTI';とするとエラーになる。
 //coffee2.size = 100;とすることができる。
 //any型は全ての型を許可する。
-//boolian,string, object, numberを入れることができる。
+//boolian, string, object, numberを入れることができる。
 //objectに新しいproperty(.coffee)を追加することができる。
 var anything = true;
 anything = 'hello';
@@ -80,3 +79,82 @@ anything = {};
 anything.coffee = 'coffee';
 //any型で配列を用意すると、何でも入れれる配列を作ることができる。
 var anything2 = [true];
+//Union型は複数の型を許可する。
+//|を使って書く。
+//文字列も数字も入れたい
+var unionType = 10;
+//unionType.toUppercase();とすると、.toUpperCase()はstringにしか使えないのでエラーになる。
+unionType = 'hello';
+unionType.toUpperCase();
+//配列を指定する場合は()を使う必要がある。
+var unionTypes = [1, 'hello'];
+//Literal型は特定の値を指定する。
+//'apple'と形にすると、appleしか入らなくなる。
+//constにした瞬間に型推論はLiteral型になる。
+//ちなみに、letにすると型推論はstring型になる。
+var apple = 'apple';
+//const apples: 'apple' = 'banana';とすると、bananaはappleにならないのでエラーになる。
+//どういう場合に便利なのか？
+//Enum型と同じように、特定の値を指定することができる。
+var clothSize = 'M';
+//Enum型の違いは、EnumはObjectであるが、Literal型はObjectではない。
+//つまり、clothSize.Sのような書き方はできない。
+var cloth = {
+    size: 'M',
+    color: 'red'
+};
+var clothColor = 'red';
+var cloth2 = {
+    size: 'M',
+    color: 'red'
+};
+//関数に型をつける
+//パラメータと戻り値に型をつける。
+//パラメータには型推論が効かない。(any型になってしまう。)
+//戻り値には型推論が効く。(型推論でOK)
+function add(num1, num2) {
+    return num1 + num2;
+}
+//関数の戻り値にvoidを使う
+function sayHello() {
+    console.log('Hello');
+}
+//関数の戻り値にvoidを使う。
+//return文を入れると、undefinedとvoidの両方が使える。
+//基本的にundefinedを使う必要はない。
+function sayHello2() {
+    console.log('Hello');
+    return;
+}
+//null型
+//undefined型にundefinedしか入れられないのと同様に、
+//null型にはnullしか入れられない。
+var tmpUndefined = undefined;
+var tmpNull = null;
+//関数を保持する変数に型をつける。
+//関数の型は、パラメータと戻り値の型を指定する。
+//戻り値は、=>を使って指定する。
+var anotherAdd = add;
+//無名関数を使って以下のように書くこともできる。
+//下の左辺、右辺のどちらか一方に、変数、戻り値の型が指定されていれば十分。
+var anotherAdd2 = function (num1, num2) {
+    return num1 + num2;
+};
+//arrow関数(=>)を使って関数をシンプルに定義することもできる。
+//一つの変数なら、一つ目のnumberは省略できる。
+//{ }を関数に書く必要がなくなる。//return文を省略できる。
+var doubleNumber = function (num) { return num * 2; };
+//これを、型注釈すると以下のようになる。
+var doubleNumber2 = function (num) { return num * 2; };
+//関数の型注釈を前に出すと以下のようになる。
+var doubleNumber3 = function (num) { return num * 2; };
+//callback関数
+//変数の引数に、cb: (num: number) => numberとCallback関数を指定する。
+//doubleAndHandleの2つ目の引数が、(num: number) => numberの型を持つ関数を指定できる。
+function doubleAndHandle(num, cb) {
+    console.log(cb(num));
+}
+//関数に実際に代入するときに、変数に関数を直接書き込むと以下のようになる。
+doubleAndHandle(10, function (doubleNum) {
+    return doubleNum * 2;
+});
