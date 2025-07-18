@@ -195,3 +195,48 @@ doubleAndHandle(10, doubleNum => {
 });
 */
 
+//unknown型
+//unknown型は、any型と同じように全ての型を許可する。
+    let unknownInput: unknown;
+    let anyInput: any;
+    let text: string;
+    unknownInput = 'hello';
+    unknownInput = 10;
+    unknownInput = true;
+    //下のようにunknown型をstring型に代入するとエラーになる。
+    //text = unknownInput;
+    anyInput = 'hello';
+    anyInput = 10;
+    anyInput = true;
+    //下のようにany型をstring型に代入するとエラーにならない。
+    text = anyInput;
+    //codeで型を絞り込むときに使う。
+    if (typeof unknownInput === 'string'){
+        text = unknownInput;
+    }
+
+    //Satisfies演算子は、単純に型のチェックをする演算子
+    //10がnumber型に代入できればOK, 代入できなければエラーを出す。
+    //型注釈でエラーが出ないかどうかをチェックするのと同じ
+    10 satisfies number;
+    //下のように変数の宣言でsatisfies演算子を用いると、型推論を利用しつつ、型のチェックを行うことができる。
+    const age =45 satisfies number;
+    
+    //never型は何の値も返さない。
+    //void型は何も返さないことを明示的に示していた。
+    //errorを投げる関数。型推論はvoid型になってしまう。
+    function error (message: string): never{
+        throw new Error(message);
+    }
+    //return size;の型を調べて、never型になっていれば、s, m , l の全てがswitchで網羅されていることが確認できる。
+    function getSizeName(size: 's' | 'm' | 'l' ): string{
+        switch(size){
+            case 's': return 'small';
+            case 'm': return 'medium';
+            case 'l': return 'large';
+            default: return size;
+        }
+    }
+
+    
+

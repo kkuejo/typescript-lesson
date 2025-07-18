@@ -155,6 +155,48 @@ function doubleAndHandle(num, cb) {
     console.log(cb(num));
 }
 //関数に実際に代入するときに、変数に関数を直接書き込むと以下のようになる。
-doubleAndHandle(10, function (doubleNum) {
-    return doubleNum * 2;
+/*
+doubleAndHandle(10, doubleNum => {
+    return doubleNum *2;
 });
+*/
+//unknown型
+//unknown型は、any型と同じように全ての型を許可する。
+var unknownInput;
+var anyInput;
+var text;
+unknownInput = 'hello';
+unknownInput = 10;
+unknownInput = true;
+//下のようにunknown型をstring型に代入するとエラーになる。
+//text = unknownInput;
+anyInput = 'hello';
+anyInput = 10;
+anyInput = true;
+//下のようにany型をstring型に代入するとエラーにならない。
+text = anyInput;
+//codeで型を絞り込むときに使う。
+if (typeof unknownInput === 'string') {
+    text = unknownInput;
+}
+//Satisfies演算子は、単純に型のチェックをする演算子
+//10がnumber型に代入できればOK, 代入できなければエラーを出す。
+//型注釈でエラーが出ないかどうかをチェックするのと同じ
+10;
+//下のように変数の宣言でsatisfies演算子を用いると、型推論を利用しつつ、型のチェックを行うことができる。
+var age = 45;
+//never型
+//errorを投げる関数。
+function error(message) {
+    throw new Error(message);
+}
+console.log(error('this is an error'));
+//下のようにunknown型をstring型に代入するとエラーになる。
+//text = unknownInput;
+//下のようにany型をstring型に代入するとエラーになる。
+//text = anyInput;
+//下のようにany型をstring型に代入するとエラーになる。
+//text = anyInput;
+//下のようにunknown型をany型に代入するとエラーになる。
+//anyInput = unknownInput;
+//下のようにany型をunknown型に代入するとエラーになる。
