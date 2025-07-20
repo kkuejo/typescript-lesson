@@ -238,5 +238,5 @@ doubleAndHandle(10, doubleNum => {
         }
     }
 
-    
+
 

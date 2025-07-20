@@ -1,26 +1,27 @@
+"use strict";
 //letでデータを定義
 //hasvalueが変数名、booleanが型(コロン、スペース)
 //コロン、スペースの後に型を書くのが型注釈
 //型注釈はオプションであり、型推論が可能な場合は省略可能
 //基本は型推論
-var hasValue = true;
-var hasValue2 = true;
+let hasValue = true;
+let hasValue2 = true;
 //number型は浮動小数点
-var count = 10;
-var float = 3.14;
-var negative = -0.12;
+let count = 10;
+let float = 3.14;
+let negative = -0.12;
 //stringは文字列、シングルクオーテーション、ダブルクオーテーション、バッククオーテーションでも良い
-var single = 'hello';
-var doublle = "hello";
-var back = "hello";
+let single = 'hello';
+let doublle = "hello";
+let back = `hello`;
 //オブジェクトの型注釈
-var person = {
+const person = {
     name: 'Jack',
     age: 21
 };
 //オブジェクトの型注釈
 //オブジェクトの中にオブジェクトを入れることもできる
-var person2 = {
+const person2 = {
     name: {
         first: 'Jack',
         last: 'Smith'
@@ -30,11 +31,11 @@ var person2 = {
 //配列の型注釈(Array型)
 //変数が全て一種類の場合は、単純に型注釈で書くことができる。
 //変数が複数種類の場合は、|(または)を使って書くことができる。
-var fruits = ['apple', 'banana', 'grape'];
-var frutts2 = ['apple', 'banana', 'grape', 1];
+const fruits = ['apple', 'banana', 'grape'];
+const frutts2 = ['apple', 'banana', 'grape', 1];
 //tuple型は型推論が行われないので、型注釈する必要がある。
 //配列の強化版
-var book = ['business', 1500, false];
+const book = ['business', 1500, false];
 //enum型は列挙型
 //coffeeのsizeに自由に入れられないようにする。
 //sizeにはShort, Tall, Grande, Ventiの4つの値が入る
@@ -48,7 +49,7 @@ var CoffeeSize;
     CoffeeSize["GRANDE"] = "GRANDE";
     CoffeeSize["VENTI"] = "VENTI";
 })(CoffeeSize || (CoffeeSize = {}));
-var coffee = {
+const coffee = {
     hot: true,
     size: CoffeeSize.SHORT
 };
@@ -62,7 +63,7 @@ var CoffeeSize2;
     CoffeeSize2[CoffeeSize2["GRANDE"] = 100] = "GRANDE";
     CoffeeSize2[CoffeeSize2["VENTI"] = 101] = "VENTI";
 })(CoffeeSize2 || (CoffeeSize2 = {}));
-var coffee2 = {
+const coffee2 = {
     hot: true,
     size: CoffeeSize2.VENTI
 };
@@ -72,39 +73,39 @@ var coffee2 = {
 //any型は全ての型を許可する。
 //boolian, string, object, numberを入れることができる。
 //objectに新しいproperty(.coffee)を追加することができる。
-var anything = true;
+let anything = true;
 anything = 'hello';
 anything = ['hello', 50, true];
 anything = {};
 anything.coffee = 'coffee';
 //any型で配列を用意すると、何でも入れれる配列を作ることができる。
-var anything2 = [true];
+let anything2 = [true];
 //Union型は複数の型を許可する。
 //|を使って書く。
 //文字列も数字も入れたい
-var unionType = 10;
+let unionType = 10;
 //unionType.toUppercase();とすると、.toUpperCase()はstringにしか使えないのでエラーになる。
 unionType = 'hello';
 unionType.toUpperCase();
 //配列を指定する場合は()を使う必要がある。
-var unionTypes = [1, 'hello'];
+let unionTypes = [1, 'hello'];
 //Literal型は特定の値を指定する。
 //'apple'と形にすると、appleしか入らなくなる。
 //constにした瞬間に型推論はLiteral型になる。
 //ちなみに、letにすると型推論はstring型になる。
-var apple = 'apple';
+const apple = 'apple';
 //const apples: 'apple' = 'banana';とすると、bananaはappleにならないのでエラーになる。
 //どういう場合に便利なのか？
 //Enum型と同じように、特定の値を指定することができる。
-var clothSize = 'M';
+let clothSize = 'M';
 //Enum型の違いは、EnumはObjectであるが、Literal型はObjectではない。
 //つまり、clothSize.Sのような書き方はできない。
-var cloth = {
+const cloth = {
     size: 'M',
     color: 'red'
 };
-var clothColor = 'red';
-var cloth2 = {
+let clothColor = 'red';
+const cloth2 = {
     size: 'M',
     color: 'red'
 };
@@ -129,25 +130,25 @@ function sayHello2() {
 //null型
 //undefined型にundefinedしか入れられないのと同様に、
 //null型にはnullしか入れられない。
-var tmpUndefined = undefined;
-var tmpNull = null;
+let tmpUndefined = undefined;
+let tmpNull = null;
 //関数を保持する変数に型をつける。
 //関数の型は、パラメータと戻り値の型を指定する。
 //戻り値は、=>を使って指定する。
-var anotherAdd = add;
+const anotherAdd = add;
 //無名関数を使って以下のように書くこともできる。
 //下の左辺、右辺のどちらか一方に、変数、戻り値の型が指定されていれば十分。
-var anotherAdd2 = function (num1, num2) {
+const anotherAdd2 = function (num1, num2) {
     return num1 + num2;
 };
 //arrow関数(=>)を使って関数をシンプルに定義することもできる。
 //一つの変数なら、一つ目のnumberは省略できる。
 //{ }を関数に書く必要がなくなる。//return文を省略できる。
-var doubleNumber = function (num) { return num * 2; };
+const doubleNumber = num => num * 2;
 //これを、型注釈すると以下のようになる。
-var doubleNumber2 = function (num) { return num * 2; };
+const doubleNumber2 = (num) => num * 2;
 //関数の型注釈を前に出すと以下のようになる。
-var doubleNumber3 = function (num) { return num * 2; };
+const doubleNumber3 = num => num * 2;
 //callback関数
 //変数の引数に、cb: (num: number) => numberとCallback関数を指定する。
 //doubleAndHandleの2つ目の引数が、(num: number) => numberの型を持つ関数を指定できる。
@@ -162,9 +163,9 @@ doubleAndHandle(10, doubleNum => {
 */
 //unknown型
 //unknown型は、any型と同じように全ての型を許可する。
-var unknownInput;
-var anyInput;
-var text;
+let unknownInput;
+let anyInput;
+let text;
 unknownInput = 'hello';
 unknownInput = 10;
 unknownInput = true;
@@ -184,19 +185,19 @@ if (typeof unknownInput === 'string') {
 //型注釈でエラーが出ないかどうかをチェックするのと同じ
 10;
 //下のように変数の宣言でsatisfies演算子を用いると、型推論を利用しつつ、型のチェックを行うことができる。
-var age = 45;
-//never型
-//errorを投げる関数。
+const age = 45;
+//never型は何の値も返さない。
+//void型は何も返さないことを明示的に示していた。
+//errorを投げる関数。型推論はvoid型になってしまう。
 function error(message) {
     throw new Error(message);
 }
-console.log(error('this is an error'));
-//下のようにunknown型をstring型に代入するとエラーになる。
-//text = unknownInput;
-//下のようにany型をstring型に代入するとエラーになる。
-//text = anyInput;
-//下のようにany型をstring型に代入するとエラーになる。
-//text = anyInput;
-//下のようにunknown型をany型に代入するとエラーになる。
-//anyInput = unknownInput;
-//下のようにany型をunknown型に代入するとエラーになる。
+//return size;の型を調べて、never型になっていれば、s, m , l の全てがswitchで網羅されていることが確認できる。
+function getSizeName(size) {
+    switch (size) {
+        case 's': return 'small';
+        case 'm': return 'medium';
+        case 'l': return 'large';
+        default: return size;
+    }
+}
